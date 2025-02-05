@@ -9,4 +9,12 @@
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
+  <servlet>
+  	<servlet-name>mappingType1</servlet-name>
+  	<servlet-class>com.gn.study.controller.mapping.FileType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>mappingType1</servlet-name>
+  	<url-pattern>/mapping/file</url-pattern>
+  </servlet-mapping>
 </web-app>
