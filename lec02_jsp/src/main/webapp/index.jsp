@@ -13,7 +13,7 @@
 	<a href="views/element/pageTag.jsp">페이지 태그 연습</a>
 	<h1>3. Directive Tag(include)</h1>
 	<a href="views/element/includeTag.jsp">인클루드 태그 연습</a>
-	<h1>4. 응답화면으로 JSP 서보기</h1>
+	<h1>4. 응답화면으로 JSP 써보기</h1>
 	<a href="views/pizzaOrder.jsp">피자 주문하기</a>
 	<h1>5. 도서 대출 시스템</h1>
 	<a href="views/bookReservation.jsp">도서 대출하기</a>
