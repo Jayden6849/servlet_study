@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Filter Home</title>
+<title>Filter, Listener 학습</title>
 </head>
 <body>
-	<h1>Test</h1>
+	<h1>필터 테스트 하기</h1>
+	<h2>(1) 어노테이션 방식</h2>
+	<form action="/receive/data" method="post">
+		<input type="text" name="test_data">
+		<button>데이터 전송</button>	
+	</form>
 </body>
 </html>
