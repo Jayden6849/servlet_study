@@ -25,7 +25,7 @@ public class ReceiveDataServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8"); // 필터에 박아놨기때문에 여기서 써줄 필요 없음
 		doGet(req, resp);
 	}
 }

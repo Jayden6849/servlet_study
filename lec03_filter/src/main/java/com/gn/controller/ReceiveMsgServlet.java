@@ -28,7 +28,7 @@ public class ReceiveMsgServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8"); // 필터에 박아놨기때문에 여기서 써줄 필요 없음
 		doGet(request, response);
 	}
 }
