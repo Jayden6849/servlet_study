@@ -11,7 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServlet;
 
-@WebFilter("")
+//@WebFilter(servletNames="receiveDataServlet")
+@WebFilter("/receive/data")
 public class DataFilter extends HttpServlet implements Filter {
 	private static final long serialVersionUID = 1L;
 	

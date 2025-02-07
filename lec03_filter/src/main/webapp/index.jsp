@@ -13,5 +13,13 @@
 		<input type="text" name="test_data">
 		<button>데이터 전송</button>	
 	</form>
+	<h2>(2) web.xml 방식</h2>
+	<form action="receive/msg" method="post">
+		<fieldset>
+			<legend>메시지 작성</legend>
+			<textarea cols="20" rows="3" name="test_msg"></textarea>
+			<button>제출</button>
+		</fieldset>
+	</form>
 </body>
 </html>
