@@ -3,8 +3,7 @@ package com.gn.common.wrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-public class MsgRequestWrapper extends HttpServletRequestWrapper{
-
+public class MsgRequestWrapper extends HttpServletRequestWrapper {
 	public MsgRequestWrapper(HttpServletRequest request) {
 		super(request);
 	}
@@ -14,7 +13,7 @@ public class MsgRequestWrapper extends HttpServletRequestWrapper{
 		if(name.equals("test_msg")) {
 			return super.getParameter(name)+"-gn-";			
 		} else {
-			return super.getParameter(name);
+			return super.getParameter(name)+"-tn-";
 		}
 	}
 }
