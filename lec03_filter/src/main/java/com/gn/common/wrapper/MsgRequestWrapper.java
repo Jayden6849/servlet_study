@@ -11,6 +11,7 @@ public class MsgRequestWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String name) {
 		if(name.equals("test_msg")) {
+			System.out.println(super.getParameter(name)+"-gn-");
 			return super.getParameter(name)+"-gn-";			
 		} else {
 			return super.getParameter(name)+"-tn-";

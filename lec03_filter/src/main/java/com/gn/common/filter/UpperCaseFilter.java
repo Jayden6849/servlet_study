@@ -30,10 +30,10 @@ public class UpperCaseFilter extends HttpServlet implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		System.out.println("요청 필터링");
+//		System.out.println("요청 필터링");
 		StringUpperWrapper suw = new StringUpperWrapper((HttpServletRequest)request);
 		chain.doFilter(suw, response);
-		System.out.println("응답 필터링");
+//		System.out.println("응답 필터링");
 	}
 
 	@Override
