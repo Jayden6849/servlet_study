@@ -35,5 +35,6 @@
 			<a href="/removeCookie">삭제하기</a>
 		</li>
 	</ul>
+	<a href="/changePage">화면전환</a>
 </body>
 </html>
