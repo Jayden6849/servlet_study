@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/createCookie")
-public class CreateCookieServlet extends HttpServlet {
+@WebServlet("/editCookie")
+public class EditCookieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public CreateCookieServlet() {
+
+    public EditCookieServlet() {
         super();
     }
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. Cookie 객체를 생성하고 유지시간 설정 후 response에 싣기
-		System.out.println("=== 쿠키 생성 - 연결 확인 ===");
-		Cookie cookie = new Cookie("user_id","user01");
+		System.out.println("=== 쿠키 수정 - 연결 확인 ===");
+		Cookie cookie = new Cookie("user_id", "admin");
 		cookie.setMaxAge(60*60*24);
 		response.addCookie(cookie);
 		
-		// 2. Root Path 로 이동하는 코드를 임의로 설정해봄
+		// 눈으로 확인하기 위해서 index.jsp로 다시 이동시킴
 		response.sendRedirect("/");
 	}
 
