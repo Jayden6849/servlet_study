@@ -48,6 +48,17 @@
 		<li>
 			<a href="/createSession">생성하기</a>
 		</li>
+		<li>
+			<%
+				String memberId = "";
+				if(session.getAttribute("member_id") == null) {
+					memberId = "세션 없음";
+				} else if(session != null) {
+					memberId = (String)session.getAttribute("member_id");					
+				}
+			%>
+			<%= memberId %>
+		</li>
 	</ol>
 </body>
 </html>

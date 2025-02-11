@@ -21,10 +21,11 @@ public class CreateSessionServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session.isNew() || session.getAttribute("member_id") == null) {
 			// 객체가 원래 존재하지 않았거나, 존재했지만 "member_id"라는 키값을 지닌 세션이 없었던 경우
+			session.setAttribute("member_id", "user01");
+			session.setMaxInactiveInterval(60*30);
 		} else {
 			// "member_id"라는 키값을 지닌 세션이 본디 존재했던 경우
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
