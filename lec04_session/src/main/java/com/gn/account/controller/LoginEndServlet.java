@@ -83,7 +83,7 @@ public class LoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			if(session.isNew() || session.getAttribute("account") == null) {
 				session.setAttribute("account", account);
-				session.setMaxInactiveInterval(10);
+				session.setMaxInactiveInterval(60*30);
 			}
 			// 아이디 정보 저장 o : Cookie에 아이디를 저장
 			// 홈화면 이동 : 로그인한 사용자 정보 노출
@@ -92,10 +92,14 @@ public class LoginEndServlet extends HttpServlet {
 				cookie = new Cookie("remember_id", account.getAccountId());
 				cookie.setMaxAge(60*60*24*7);	// 일반적으로 id 저장은 7일간 쿠키로 남겨두는게 일반적
 				response.addCookie(cookie);
+				
+				response.sendRedirect("/");
 			} else {
 				cookie = new Cookie("remember_id", "");
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
+				
+				response.sendRedirect("/");
 			}
 		// 2-2 없다면? 로그인 페이지를 다시 요청할 것(sendRedirect();)
 		} else {

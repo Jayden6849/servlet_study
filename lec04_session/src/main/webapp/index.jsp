@@ -21,14 +21,7 @@
 		<li>
 			<a href="/createCookie">생성하기</a>
 		</li>
-		<li>쿠키 연습하기
-			생성하기
-			아이디 : 쿠키없음
-			수정하기
-			삭제하기
-			화면전환
-			세션 연습하기
-			생성하기
+		<li>
 			<%
 				String userId = "쿠키없음";
 				if(cookies != null) {
