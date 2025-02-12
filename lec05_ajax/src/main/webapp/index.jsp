@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h1>JavaScript</h1>
-	<a href="/jsAjaxPage">연습화면이동</a>
+	<a href="/jsAjaxPage">JS 연습화면이동</a>
+	<h1>jQuery</h1>
+	<a href="views/jquery/sample.jsp">jQuery 연습화면이동</a>
 </body>
 </html>
