@@ -11,6 +11,7 @@
 <body>
 	<input type="text" id="userId" name="user_id">
 	<button type="button" id="get_btn">Get방식</button>
+	<button type="button" id="post_btn">Post방식</button>
 	<div id="result_div">
 		<!-- 통신의 결과를 보여줄 공간 -->
 	</div>
@@ -19,8 +20,35 @@
 			$('#get_btn').click(function(){
 				const userId = $('#userId').val();
 				$.ajax({
+					url : "/jQueryAjaxGet?userId="+userId,
+					type : "get",
+					success : function(data){
+						console.log("=================");
+						console.log(data);
+						$('#result_div').append(data);
+					},
+					error : function(request, status, error){
+						console.log("=================");
+						console.log(request);
+						console.log(status);
+						console.log(error);
+					}
+				});
+			});
+			$('#post_btn').click(function(){
+				const userId = $('#userId').val();
+				$.ajax({
 					url : "/jQueryAjaxGet",
-					
+					type : "post",
+					contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+					data : {userId:userId},
+					success : function(data){
+						$('#result_div').append("<p>=== post ===</p>");
+						$('#result_div').append(data);
+					},
+					error : function(){
+						alert('서버 요청 중 오류가 발생하였습니다.');
+					}
 				});
 			});
 		});
