@@ -43,9 +43,9 @@ public class PassWordEncodingWrapper extends HttpServletRequestWrapper{
 		md.update(strByte);
 		
 		// 5. 암호화 처리된 값을 byte[]로 가져옴
-		byte[] encrytByte = md.digest(strByte);
+		byte[] encryptByte = md.digest();
 		
 		// 6. Base64인코더를 이용해서 byte[]를 String으로 바꾼 후 반환함
-		return Base64.getEncoder().encodeToString(encrytByte);
+		return Base64.getEncoder().encodeToString(encryptByte);
 	}
 }
