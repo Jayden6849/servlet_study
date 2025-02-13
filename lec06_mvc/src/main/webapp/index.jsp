@@ -4,9 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC Home</title>
+<title>Home</title>
 </head>
 <body>
-	<p>test</p>
+	<%@ include file="/views/include/header.jsp" %>
+	<%@ include file="/views/include/nav.jsp" %>
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h3>HOME</h3>
+			</div>
+		</div>
+	</section>
 </body>
 </html>
