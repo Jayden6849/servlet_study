@@ -25,7 +25,7 @@
 						<input type="text" name="member_id" placeholder="아이디"><br>
 						<input type="password" name="member_pw" placeholder="비밀번호"><br>
 						<input type="password" name="member_pw_check" placeholder="비밀번호 확인"><br>
-						<input type="text" name="member_name" placeholder="이름"><br>
+						<input type="text" name="member_name" placeholder="닉네임"><br>
 						<input type="button" value="회원가입" onclick="createMemberForm();">
 					</form>
 				</div>
