@@ -52,7 +52,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "[번호=" + memberNo + ", 아이디=" + memberId + ", 비밀번호" + memberPw + ", 닉네임="
+		return "[번호=" + memberNo + ", 아이디=" + memberId + ", 비밀번호=" + memberPw + ", 닉네임="
 				+ memberName + "]";
 	}
 }

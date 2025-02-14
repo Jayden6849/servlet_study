@@ -18,7 +18,6 @@ public class MemberLoginServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("test");
 		RequestDispatcher view = request.getRequestDispatcher("views/member/login.jsp");
 		view.forward(request, response);
 	}

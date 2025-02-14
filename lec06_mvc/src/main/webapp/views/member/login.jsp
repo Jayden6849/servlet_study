@@ -7,6 +7,7 @@
 <title>로그인</title>
 <link href='<%=request.getContextPath()%>/resources/css/member/login.css' 
 rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -20,7 +21,7 @@ rel="stylesheet" type="text/css">
 				<form action='/memberLoginEnd' name="login_form" method="post">
 					<input type="text"	name="member_id" 	placeholder="아이디"> <br>
 					<input type="password"	name="member_pw" 	placeholder="비밀번호"> <br>
-					<input type="button"	value="로그인" onclick="loginForm();"> 
+					<input type="button"	value="로그인" onclick="loginForm();">
 					<input type="reset"	value="초기화">					
 				</form>
 			</div>
@@ -39,7 +40,19 @@ rel="stylesheet" type="text/css">
 				alert('비밀번호를 입력하세요.');
 				form.member_pw.focus();
 			} else {
-				form.submit();
+				// form.submit();
+				$.ajax({
+					url : "memberLoginEnd",
+					type : "post",
+					data : {
+						"member_id" : form.member_id.value,
+						"member_pw" : form.member_pw.value
+					},
+					dataType : "JSON",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					success : function(){},
+					error : function(){}
+				});
 			}
 		}
 	</script>
