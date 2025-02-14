@@ -40,19 +40,7 @@ rel="stylesheet" type="text/css">
 				alert('비밀번호를 입력하세요.');
 				form.member_pw.focus();
 			} else {
-				// form.submit();
-				$.ajax({
-					url : "memberLoginEnd",
-					type : "post",
-					data : {
-						"member_id" : form.member_id.value,
-						"member_pw" : form.member_pw.value
-					},
-					dataType : "JSON",
-					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-					success : function(){},
-					error : function(){}
-				});
+				form.submit();
 			}
 		}
 	</script>

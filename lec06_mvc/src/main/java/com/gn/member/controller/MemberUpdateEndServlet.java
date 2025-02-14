@@ -11,46 +11,30 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.gn.member.service.MemberService;
-import com.gn.member.vo.Member;
 
-@WebServlet(name="memberCreateEndServlet", urlPatterns="/memberCreateEnd")
-public class MemberCreateEndServlet extends HttpServlet {
+@WebServlet(name="memberUpdateEndServlet", urlPatterns="/memberUpdateEnd")
+public class MemberUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public MemberCreateEndServlet() {
+       
+    public MemberUpdateEndServlet() {
         super();
     }
 
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String no = request.getParameter("member_no");
+		int no = Integer.parseInt(request.getParameter("member_no"));
 		String pw = request.getParameter("member_pw");
 		String name = request.getParameter("member_name");
 		
-		Member m = new Member();
-		m.setMemberId(no);
-		m.setMemberPw(pw);
-		m.setMemberName(name);
-		
-		// service에 데이터를 전달
-		int result = new MemberService().createMember(m);
-
-//		RequestDispatcher view = request.getRequestDispatcher("/views/member/create_fail.jsp");
-//		
-//		if(result > 0) {
-//			view = request.getRequestDispatcher("/views/member/create_success.jsp");
-//			view.forward(request, response);
-//		} else {
-//			view.forward(request, response);
-//		}
+		int result = new MemberService().updateMember(no, pw, name);
 		
 		JSONObject obj = new JSONObject();
 		obj.put("res_code", "500");
-		obj.put("res_msg", "회원가입 중 오류가 발생하였습니다.");
+		obj.put("res_msg", "회원정보수정 중 오류가 발생하였습니다.");
 		
 		if(result > 0) {
 			obj.put("res_code", "200");
-			obj.put("res_msg", "회원가입이 완료되었습니다.");
+			obj.put("res_msg", "회원정보수정이 완료되었습니다.");
 		}
 		
 		response.setContentType("application/json; charset=utf-8");

@@ -25,6 +25,8 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
@@ -54,11 +56,37 @@ public class MemberDao {
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			close(rs);
 			close(pstmt);
 		}
 		
 		return m;
+	}
+	
+	public int updateMember(Connection conn, int no, String pw, String name) {
+		PreparedStatement pstmt = null;		
+		
+		int result = 0;
+		
+		try {
+			String sql = "UPDATE `member` SET `member_pw` = ? ,`member_name` = ? WHERE `member_no` = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, pw);
+			pstmt.setString(2, name);
+			pstmt.setInt(3, no);
+			
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

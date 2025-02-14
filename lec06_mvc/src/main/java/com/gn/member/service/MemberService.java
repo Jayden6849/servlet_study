@@ -28,4 +28,13 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public int updateMember(int no, String pw, String name) {
+		Connection conn = getConnection();
+		
+		int result = md.updateMember(conn, no, pw, name);
+		close(conn);
+		
+		return result;
+	}
 }

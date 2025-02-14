@@ -9,10 +9,10 @@
 			<ul>
 				<% if(m == null) { %>
 					<li><a href="/memberLogin">로그인</a></li>
-					<li><a href="/membeCreate">회원가입</a></li>
+					<li><a href="/memberCreate">회원가입</a></li>
 				<% } else { %>
-					<li><a href="#">로그아웃</a></li>
-					<li><a href="#">계정수정</a></li>
+					<li><a href="/memberLogout">로그아웃</a></li>
+					<li><a href="/memberUpdate">계정수정</a></li>
 				<% } %>				
 			</ul>
 		</div>
