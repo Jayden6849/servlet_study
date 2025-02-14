@@ -89,4 +89,37 @@ public class MemberDao {
 		
 		return result;
 	}
+	
+	public Member selectMemberByNo(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Member m = null;
+		
+		try {
+			String sql = "SELECT * FROM `member` WHERE `member_no` = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = new Member();
+				m.setMemberNo(rs.getInt("member_no"));
+				m.setMemberId(rs.getString("member_id"));
+				m.setMemberPw(rs.getString("member_pw"));
+				m.setMemberName(rs.getString("member_name"));
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return m;
+	}
 }

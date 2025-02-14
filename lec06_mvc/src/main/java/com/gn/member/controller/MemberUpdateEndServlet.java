@@ -7,10 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
 import com.gn.member.service.MemberService;
+import com.gn.member.vo.Member;
 
 @WebServlet(name="memberUpdateEndServlet", urlPatterns="/memberUpdateEnd")
 public class MemberUpdateEndServlet extends HttpServlet {
@@ -34,7 +36,15 @@ public class MemberUpdateEndServlet extends HttpServlet {
 		
 		if(result > 0) {
 			obj.put("res_code", "200");
-			obj.put("res_msg", "회원정보수정이 완료되었습니다.");
+			obj.put("res_msg", "회원정보수정이 완료되었습니다.");			
+			
+			HttpSession session = request.getSession(false);
+			Member m = (Member)session.getAttribute("member");
+			no = m.getMemberNo();
+			
+			m = new MemberService().selectMemberByNo(no);
+			session.setAttribute("member", m);
+			session.setMaxInactiveInterval(60*30);
 		}
 		
 		response.setContentType("application/json; charset=utf-8");

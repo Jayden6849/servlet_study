@@ -37,4 +37,13 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public Member selectMemberByNo(int no) {
+		Connection conn = getConnection();
+		
+		Member m = md.selectMemberByNo(conn, no);
+		close(conn);
+		
+		return m;
+	}
 }
