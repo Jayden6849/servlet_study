@@ -6,7 +6,7 @@
 		<div class="menu">
 			<ul>
 				<li>
-					<a href="#">로그인</a>
+					<a href="/memberLogin">로그인</a>
 				</li>
 				<li>
 					<a href="/memberCreate">회원가입</a>

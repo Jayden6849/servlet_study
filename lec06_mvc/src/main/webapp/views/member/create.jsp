@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>회원가입 페이지</title>
 <link href="/resources/css/member/create.css" rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -30,7 +31,7 @@
 					</form>
 				</div>
 				<div class="login">
-					<a href="#">로그인</a>
+					<a href="/memberLogin">로그인</a>
 				</div>
 				
 			</div>
@@ -59,7 +60,25 @@
 			} else {
 				// 유효성 검사를 모두 통과한 시점에 submit() 함수를 호출함
 				// action 속성, method 속성대로 데이터를 전송함
-				form.submit();
+				// form.submit();
+				$.ajax({
+					url : "/memberCreateEnd",
+					type : "post",
+					data : {
+						"member_id" : form.member_id.value,
+						"member_pw" : form.member_pw.value,
+						"member_name" : form.member_name.value
+					},
+					dataType : "JSON",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					success : function(data){
+						alert(data["res_msg"]);
+						if(data["res_code"] === "200") {
+							location.assign("/views/member/create_success.jsp");
+						}
+					},
+					error : function(){}
+				});
 			}
 		};
 	</script>
