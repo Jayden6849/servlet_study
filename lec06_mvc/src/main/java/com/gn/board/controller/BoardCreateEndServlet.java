@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -109,6 +110,15 @@ public class BoardCreateEndServlet extends HttpServlet {
 			
 			// 이제 파일 정보를 DB에 업로드해야함 (Board, Attatch 각각의 정보를 insert 하는 트랜잭션 처리해줘야함)
 			int result = new BoardService().createBoard(b, a);
+			
+			// 결과에 따라 각각 jsp로 이동
+			RequestDispatcher view = request.getRequestDispatcher("/views/board/create_fail.jsp");
+			
+			if(result > 0) {
+				view = request.getRequestDispatcher("/views/board/create_success.jsp");
+			}
+			
+			view.forward(request, response);
 			
 		} catch (FileUploadException e) {
 			e.printStackTrace();
