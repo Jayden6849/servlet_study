@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +15,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
 
 import com.gn.board.service.BoardService;
 import com.gn.board.vo.Attach;
@@ -29,6 +29,7 @@ public class BoardCreateEndServlet extends HttpServlet {
         super();
     }
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 요청시에 전달된 데이터를 담을 바구니를 만들어줌
 		Board b = new Board();
@@ -111,14 +112,43 @@ public class BoardCreateEndServlet extends HttpServlet {
 			// 이제 파일 정보를 DB에 업로드해야함 (Board, Attatch 각각의 정보를 insert 하는 트랜잭션 처리해줘야함)
 			int result = new BoardService().createBoard(b, a);
 			
-			// 결과에 따라 각각 jsp로 이동
-			RequestDispatcher view = request.getRequestDispatcher("/views/board/create_fail.jsp");
+			// 비동기 방식일 경우 - 결과에 따라 각각 jsp로 이동
+			// RequestDispatcher view = request.getRequestDispatcher("/views/board/create_fail.jsp");
+			
+			// if(result > 0) {
+			//	view = request.getRequestDispatcher("/views/board/create_success.jsp");
+			// } else {
+				// 데이터베이스는 등록이 안 되었는데 파일은 서버에 올라갔으므로 파일을 지워줘야함
+			//	String deletePath = a.getAttachPath();
+			//	File deleteFile = new File(deletePath);
+				
+			//	if(deleteFile.exists()) {
+			//		deleteFile.delete();
+			//	}
+			// }
+			
+			// view.forward(request, response);
+			
+			// 동기 방식일 경우 - 결과에 따라 반환값이 다름
+			JSONObject obj = new JSONObject();
 			
 			if(result > 0) {
-				view = request.getRequestDispatcher("/views/board/create_success.jsp");
+				obj.put("res_code", "200");
+				obj.put("res_msg", "정상적으로 게시글 등록되었습니다.");
+			} else {
+				obj.put("res_code", "500");
+				obj.put("res_msg", "게시글 등록 중 오류가 발생하였습니다.");
+				
+				String deletePath = a.getAttachPath();
+				
+				File deleteFile = new File(deletePath);
+				if(deleteFile.exists()) {
+					deleteFile.delete();
+				}
 			}
 			
-			view.forward(request, response);
+			response.setContentType("application/json; charset=UTF-8");
+			response.getWriter().print(obj);
 			
 		} catch (FileUploadException e) {
 			e.printStackTrace();

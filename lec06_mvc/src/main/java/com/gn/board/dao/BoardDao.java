@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
@@ -79,5 +81,42 @@ public class BoardDao {
 		}
 		
 		return boardNo;
+	}
+	
+	public List<Board> selectBoardList(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<Board> resultList = new ArrayList<>();
+		
+		// board_no, board_title, board_content, 게시글 작성자의 닉네임(Join해서 가져와야함), reg_date, mod_date
+		
+		try {
+			String sql = "SELECT * FROM `board` b JOIN `member` m ON m.member_no = b.board_writer";
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Board board = new Board();
+				board.setBoardNo(rs.getInt("b.board_no"));
+				board.setBoardTitle(rs.getString("b.board_title"));
+				board.setBoardContent(rs.getString("b.board_content"));
+				board.setMemberName(rs.getString("m.member_name"));
+				board.setRegDate(rs.getTimestamp("b.reg_date").toLocalDateTime());
+				board.setModDate(rs.getTimestamp("b.mod_date").toLocalDateTime());
+				resultList.add(board);
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return resultList;
 	}
 }

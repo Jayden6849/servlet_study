@@ -6,6 +6,7 @@ import static com.gn.common.sql.JDBCTemplate.getConnection;
 import static com.gn.common.sql.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Attach;
@@ -40,5 +41,14 @@ public class BoardService {
 		close(conn);
 		
 		return result;
+	}
+	
+	public List<Board> selectBoardList() {
+		Connection conn = getConnection();
+		
+		List<Board> resultList = new BoardDao().selectBoardList(conn);
+		close(conn);
+		
+		return resultList;
 	}
 }
