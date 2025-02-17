@@ -13,7 +13,8 @@
 				<% } else { %>
 					<li><a href="/memberLogout">로그아웃</a></li>
 					<li><a href="/memberUpdate">계정수정</a></li>
-				<% } %>				
+					<li><a href="/boardCreate">게시글 등록</a></li>
+				<% } %>
 			</ul>
 		</div>
 	</div>
