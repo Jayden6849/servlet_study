@@ -45,8 +45,7 @@ rel="stylesheet" type="text/css">
 				const idx = val.lastIndexOf(".");
 				const type = val.substring(idx+1, val.length);
 				if(type == 'png' || type == 'jpg' || type == 'jpeg') {
-					// form.submit();
-					console.log(val);
+					form.submit();
 				} else {
 					alert('이미지 파일만 선택할 수 있습니다.');
 					form.board_file.value = '';
