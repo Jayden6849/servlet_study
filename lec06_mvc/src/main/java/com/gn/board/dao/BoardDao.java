@@ -14,6 +14,7 @@ import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
 
 public class BoardDao {
+	// DB에 게시글을 등록하고 반환 결과를 반환해주는 메소드 
 	public int insertBoard(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -83,6 +84,7 @@ public class BoardDao {
 		return boardNo;
 	}
 	
+	// 게시글 객체를 List에 담아서 반환해주는 메소드 
 	public List<Board> selectBoardList(Connection conn, Board option) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -96,6 +98,9 @@ public class BoardDao {
 			if(option.getBoardTitle() != null) {
 				sql += " WHERE `board_title` LIKE CONCAT('%', '"+option.getBoardTitle()+"', '%')";
 			}
+			
+			sql += " LIMIT "+option.getLimitPageNo()+", "+option.getNumPerPage();
+			
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
@@ -121,5 +126,36 @@ public class BoardDao {
 		}
 		
 		return resultList;
+	}
+	
+	// 게시글의 개수를 카운팅해서 반환해주는 메소드
+	public int selectBoardCount(Connection conn, Board option) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int result = 0;
+		
+		try {
+			String sql = "SELECT COUNT(*) FROM `board`";
+			if(option.getBoardTitle() != null) {
+				sql += " WHERE `board_title` LIKE CONCAT('%','"+option.getBoardTitle()+"','%')";
+			}
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

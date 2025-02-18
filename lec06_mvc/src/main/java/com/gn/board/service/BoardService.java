@@ -51,4 +51,13 @@ public class BoardService {
 		
 		return resultList;
 	}
+	
+	public int selectBoardCount(Board option) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDao().selectBoardCount(conn, option);
+		close(conn);
+		
+		return result;
+	}
 }

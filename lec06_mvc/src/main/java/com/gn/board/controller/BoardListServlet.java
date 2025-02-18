@@ -16,17 +16,22 @@ import com.gn.board.vo.Board;
 @WebServlet("/boardList")
 public class BoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
     public BoardListServlet() {
         super();
     }
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String boardTitle = request.getParameter("board_title");
+		String nowPage = request.getParameter("nowPage");
 		
 		// 1. 여러 검색 기준을 담을 수 있도록 바구니에 담음
 		Board option = new Board();
 		option.setBoardTitle(boardTitle);
+		
+		if(nowPage != null) {
+			option.setNowPage(Integer.parseInt(nowPage));
+		}
 		
 		// 2. 조회를 위해 페이징을 위한 데이터를 카운팅해서 option 객체에 담아줌
 		int totalData = new BoardService().selectBoardCount(option);
@@ -38,6 +43,7 @@ public class BoardListServlet extends HttpServlet {
 		// 4. DB에서 받아온 정보를 지닌 채로 view 단으로 넘김
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
 		request.setAttribute("resultList", resultList);
+		request.setAttribute("paging", option);
 		
 		view.forward(request, response);
 	}
