@@ -83,7 +83,7 @@ public class BoardDao {
 		return boardNo;
 	}
 	
-	public List<Board> selectBoardList(Connection conn) {
+	public List<Board> selectBoardList(Connection conn, Board option) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
@@ -93,6 +93,9 @@ public class BoardDao {
 		
 		try {
 			String sql = "SELECT * FROM `board` b JOIN `member` m ON m.member_no = b.board_writer";
+			if(option.getBoardTitle() != null) {
+				sql += " WHERE `board_title` LIKE CONCAT('%', '"+option.getBoardTitle()+"', '%')";
+			}
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();

@@ -102,8 +102,8 @@ public class BoardCreateEndServlet extends HttpServlet {
 			}
 			
 			// 바구니에 들어있는 데이터를 확인 - 콘솔창에 찍히는지 확인
-			System.out.println(b);
-			System.out.println(a);		
+//			System.out.println(b);
+//			System.out.println(a);		
 			
 			// 지정한 경로에 파일이 잘 업로드 되었는지 확인 - 폴더가서 눈으로 확인
 			

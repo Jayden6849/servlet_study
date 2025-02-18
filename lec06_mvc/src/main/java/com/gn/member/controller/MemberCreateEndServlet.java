@@ -24,11 +24,13 @@ public class MemberCreateEndServlet extends HttpServlet {
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String no = request.getParameter("member_no");
+		String id = request.getParameter("member_id");
 		String pw = request.getParameter("member_pw");
 		String name = request.getParameter("member_name");
 		
 		Member m = new Member();
 		m.setMemberId(no);
+		m.setMemberId(id);
 		m.setMemberPw(pw);
 		m.setMemberName(name);
 		

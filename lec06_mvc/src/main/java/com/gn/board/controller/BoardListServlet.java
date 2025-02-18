@@ -22,12 +22,22 @@ public class BoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> resultList = new BoardService().selectBoardList();
+		String boardTitle = request.getParameter("board_title");
 		
+		// 1. 여러 검색 기준을 담을 수 있도록 바구니에 담음
+		Board option = new Board();
+		option.setBoardTitle(boardTitle);
+		
+		// 2. 조회를 위해 페이징을 위한 데이터를 카운팅해서 option 객체에 담아줌
+		int totalData = new BoardService().selectBoardCount(option);
+		option.setTotalData(totalData);		 		// 내부적으로 calcPage()가 동작하게 구성해둠
+		
+		// 3. 해당 데이터까지 담아서 조회를 위해 서비스로 넘김
+		List<Board> resultList = new BoardService().selectBoardList(option);
+		
+		// 4. DB에서 받아온 정보를 지닌 채로 view 단으로 넘김
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
 		request.setAttribute("resultList", resultList);
-		
-		System.out.println(resultList);
 		
 		view.forward(request, response);
 	}

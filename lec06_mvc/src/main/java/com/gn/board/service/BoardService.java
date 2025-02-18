@@ -43,10 +43,10 @@ public class BoardService {
 		return result;
 	}
 	
-	public List<Board> selectBoardList() {
+	public List<Board> selectBoardList(Board option) {
 		Connection conn = getConnection();
 		
-		List<Board> resultList = new BoardDao().selectBoardList(conn);
+		List<Board> resultList = new BoardDao().selectBoardList(conn, option);
 		close(conn);
 		
 		return resultList;

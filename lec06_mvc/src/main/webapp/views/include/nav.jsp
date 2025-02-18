@@ -10,12 +10,12 @@
 				<% if(m == null) { %>
 					<li><a href="/memberLogin">로그인</a></li>
 					<li><a href="/memberCreate">회원가입</a></li>
-					<li><a href="/boardList">게시글 목록</a>
 				<% } else { %>
 					<li><a href="/memberLogout">로그아웃</a></li>
 					<li><a href="/memberUpdate">계정수정</a></li>
-					<li><a href="/boardCreate">게시글 등록</a></li>
+					<li><a href="/boardCreate">게시글 등록</a></li>					
 				<% } %>
+					<li><a href="/boardList">게시글 목록</a>
 			</ul>
 		</div>
 	</div>
