@@ -11,6 +11,7 @@
 <title>게시판</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/list.css' rel="stylesheet" type="text/css">
 <link href='<%=request.getContextPath()%>/resources/css/include/paging.css' rel="stylesheet" type="text/css">
+<script src='<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js'></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -47,7 +48,7 @@
 						<% List<Board> boardList = (List<Board>)request.getAttribute("resultList"); %>
 						<% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm"); %>
 						<% for(int i=0; i<boardList.size(); i++) { %>
-							<tr>
+							<tr data-board-no="<%= boardList.get(i).getBoardNo() %>">
 								<td><%= (i+1) + (paging.getNowPage() - 1) * paging.getNumPerPage() %></td>
 								<td><%= boardList.get(i).getBoardTitle() %></td>
 								<td><%= boardList.get(i).getMemberName() %></td>
@@ -74,5 +75,11 @@
 			</div>
 		</div>
 	<% } %>
+	<script>
+		$('.board_list tbody tr').on('click', function(){
+			const boardNo = $(this).data('board-no');
+			location.href='/boardDetail?board_no='+boardNo;
+		});
+	</script>
 </body>
 </html>

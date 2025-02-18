@@ -14,13 +14,13 @@ import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
 
 public class BoardDao {
-	// DB에 게시글을 등록하고 반환 결과를 반환해주는 메소드 
+	// DB에 게시글을 등록하고 반환 결과를 반환해주는 메소드
 	public int insertBoard(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		int boardNo = 0;
-
+		
 		try {
 			String sql = "INSERT INTO `board` (`board_title` ,`board_content` ,`board_writer`) "
 					+ "VALUES (? ,? ,?)";
@@ -54,7 +54,7 @@ public class BoardDao {
 	public int insertAttach(Connection conn, Attach a) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-
+		
 		int boardNo = 0;
 		
 		try {
@@ -84,7 +84,7 @@ public class BoardDao {
 		return boardNo;
 	}
 	
-	// 게시글 객체를 List에 담아서 반환해주는 메소드 
+	// 게시글 객체를 List에 담아서 반환해주는 메소드
 	public List<Board> selectBoardList(Connection conn, Board option) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -157,5 +157,41 @@ public class BoardDao {
 		}
 		
 		return result;
+	}
+	
+	public Board selectBoardOne(Connection conn, int boardNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Board board = null;
+		
+		try {
+			String sql = "SELECT * FROM `board` b JOIN `member` m ON m.member_no = b.board_writer JOIN `attach` a ON b.board_no = a.board_no WHERE b.board_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, boardNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				board = new Board();
+				board.setBoardNo(rs.getInt("board_no"));
+				board.setBoardTitle(rs.getString("board_title"));
+				board.setMemberName(rs.getString("member_name"));
+				board.setBoardContent(rs.getString("board_content"));
+				board.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
+				board.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
+				board.setNewName(rs.getString("new_name"));
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return board;
 	}
 }
