@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,8 +110,34 @@
 		${num1 eq 10 and num2 eq 3}<br>
 		${false or true}<br>
 	</p>
-	
 	<hr>
 	<h1>JSTL</h1>
+	<h2>1. 변수</h2>
+	<c:set var="n1" value="15"/>
+	<c:set var="n2" value="20"/>
+	<c:set var="result" value="${n1+n2}"/>
+	<c:out value="n1+n2=${result}"/><br>
+	
+	<c:set var="hello" value="<b>안녕하세요</b>"/>
+	<c:out value="${hello}"/><br>
+	<c:out value="${hello}" escapeXml="false"/>
+	
+	<h2>2. 조건문(c:if)</h2>
+	<c:if test="${num1 le num2}">
+		<p>num1이 num2보다 작거나 같습니다.</p>
+	</c:if>
+	
+	<h3>3. 조건문(c:choose)</h3>
+	<c:choose>
+		<c:when test="${num1 gt 20}">
+			<p>num1이 20보다 큽니다.</p>
+		</c:when>
+		<c:when test="${num1 ge 10}">
+			<p>num1이 10보다 크거나 같으면서, 20보다는 작거나 같습니다.</p>
+		</c:when>
+		<c:otherwise>
+			<p>num1은 10보다 작습니다.</p>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>
