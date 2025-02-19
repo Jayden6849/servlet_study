@@ -29,19 +29,22 @@
 						<table>
 							<tr>
 								<td>제목</td>
-								<td><%= board.getBoardTitle() %></td>
+								<%-- <td><%= board.getBoardTitle() %></td> --%>
+								<td>${board.boardTitle}</td>
 							</tr>
 							<tr>
 								<td>내용</td>
-								<td><%= board.getBoardContent() %></td>
+								<%-- <td><%= board.getBoardContent() %></td> --%>
+								<td>${board.boardContent}</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td><%= board.getMemberName() %></td>
+								<%-- <td><%= board.getMemberName() %></td> --%>
+								<td>${board.memberName}</td>
 							</tr>
 							<tr>
 								<td>등록일</td>
-								<td><%= board.getRegDate().format(dtf) %></td>
+								<td><%= board.getRegDate().format(dtf) %></td>							
 							</tr>
 							<tr>
 								<td>수정일</td>
