@@ -139,5 +139,32 @@
 			<p>num1은 10보다 작습니다.</p>
 		</c:otherwise>
 	</c:choose>
+	
+	<h3>4. 반복문(c:forEach)</h3>
+	<c:forEach var="i" begin="1" end="10" step="2">
+		<p>반복숫자 : ${i}</p>
+	</c:forEach>
+	
+	<%
+		String[] colors = {"red", "green", "blue"};
+		request.setAttribute("colors", colors);
+	%>
+	<ul>
+		<c:forEach var="color" items="${colors}">
+			<li>${color}</li>
+		</c:forEach>
+	</ul>
+	<c:forEach var="i" begin="1" end="6">
+		<h${i}>Hello, world</h${i}>
+	</c:forEach>
+	
+	<c:forEach var="num" begin="0" end="5" varStatus="vs">
+		<p <c:if test="${vs.first}"> style="color:red"</c:if>>
+			인덱스 : ${vs.index}<br>
+			카운트 : ${vs.count}<br>
+			첫번째인가요? ${vs.first}<br>
+			마지막인가요? ${vs.last}<br> 
+		</p>
+	</c:forEach>
 </body>
 </html>

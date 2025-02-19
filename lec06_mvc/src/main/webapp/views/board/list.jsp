@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -46,32 +47,50 @@
 					</thead>
 					<tbody>
 						<% List<Board> boardList = (List<Board>)request.getAttribute("resultList"); %>
-						<% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm"); %>
-						<% for(int i=0; i<boardList.size(); i++) { %>
+						<% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"); %>
+						<%-- <% for(int i=0; i<boardList.size(); i++) { %>
 							<tr data-board-no="<%= boardList.get(i).getBoardNo() %>">
 								<td><%= (i+1) + (paging.getNowPage() - 1) * paging.getNumPerPage() %></td>
 								<td><%= boardList.get(i).getBoardTitle() %></td>
 								<td><%= boardList.get(i).getMemberName() %></td>
 								<td><%= boardList.get(i).getRegDate().format(dtf) %></td>
 							</tr>
-						<% } %>
+						<% } %> --%>
+						
+						<c:forEach var="result" items="${resultList}" varStatus="status">
+							<tr data-board-no="${result.boardNo}">
+								<td>${(status.index + 1) + ((paging.nowPage - 1) * paging.numPerPage)}</td>
+								<td>${result.boardTitle}</td>
+								<td>${result.memberName}</td>
+								<td>${result.regDate}</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>
-	<% if(paging != null) { %>
+	<% if(paging != null) { 	%>
 		<div class="center">
 			<div class="pagination">
-				<% if(paging.isPrev()) { %>
+				<%-- <% if(paging.isPrev()) { %>
 					<a href="/boardList?nowPage=<%= (paging.getPageBarStart()-1) %>&board_title=<%= paging.getBoardTitle() == null ? "" : paging.getBoardTitle() %>">&laquo;</a>
-				<% } %>
-				<% for(int i=paging.getPageBarStart(); i<=paging.getPageBarEnd(); i++) { %>
+				<% } %> --%>
+				<%-- <% for(int i=paging.getPageBarStart(); i<=paging.getPageBarEnd(); i++) { %>
 					<a href="/boardList?nowPage=<%= i %>&board_title=<%= paging.getBoardTitle() == null ? "" : paging.getBoardTitle() %>"><%= i %></a>
-				<% } %>
-				<% if(paging.isNext()) { %>
+				<% } %> --%>
+				<%-- <% if(paging.isNext()) { %>
 					<a href="/boardList?nowPage=<%= (paging.getPageBarEnd()+1) %>&board_title=<%= paging.getBoardTitle() == null ? "" : paging.getBoardTitle() %>">&raquo;</a>
-				<% } %>
+				<% } %> --%>
+				<c:if test="${paging.prev}">
+					<a href="/boardList?nowPage=${paging.pageBarStart-1}&board_title=${(paging.boardTitle eq null) ? '' : paging.boardTitle}">&laquo;</a>
+				</c:if>
+				<c:forEach var="i" begin="${paging.pageBarStart}" end="${paging.pageBarEnd}" step="1" varStatus="vs">
+					<a href="/boardList?nowPage=${vs.index}&board_title=${(paging.boardTitle eq null) ? '' : paging.boardTitle}">${vs.index}</a>
+				</c:forEach>
+				<c:if test="${paging.next}">
+					<a href="/boardList?nowPage=${paging.pageBarEnd+1}&board_title=${(paging.boardTitle eq null) ? '' : paging.boardTitle}">&raquo;</a>
+				</c:if>
 			</div>
 		</div>
 	<% } %>
