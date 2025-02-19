@@ -180,7 +180,7 @@ public class BoardDao {
 				board.setBoardContent(rs.getString("board_content"));
 				board.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
 				board.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
-				board.setNewName(rs.getString("new_name"));
+				board.setAttachNo(rs.getInt("attach_no"));
 			}
 			
 		} catch(SQLException e) {
@@ -193,5 +193,38 @@ public class BoardDao {
 		}
 		
 		return board;
+	}
+	
+	public Attach selectAttachOne(Connection conn, int attachNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		Attach attach = null;
+		
+		try {
+			String sql = "SELECT * FROM `attach` WHERE attach_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, attachNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				attach = new Attach();
+				attach.setAttachNo(rs.getInt("attach_no"));
+				attach.setOriName(rs.getString("ori_name"));
+				attach.setNewName(rs.getString("new_name"));
+				attach.setAttachPath(rs.getString("attach_path"));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return attach;
 	}
 }
