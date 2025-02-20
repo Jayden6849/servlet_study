@@ -1,8 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <%@ page import="java.util.*" %>
 <%@ page import="java.time.format.*" %>
 
@@ -15,7 +17,7 @@
 <title>게시판</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/list.css' rel="stylesheet" type="text/css">
 <link href='<%=request.getContextPath()%>/resources/css/include/paging.css' rel="stylesheet" type="text/css">
-<script src='<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js'></script>
+<script src="<c:url value='/resources/js/jquery-3.7.1.js'/>"></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -56,12 +58,12 @@
 										<td>${(vs.index + 1) + ((paging.nowPage - 1) * paging.numPerPage)}</td>
 										<td>${b.boardTitle}</td>
 										<td>${b.memberName}</td>
-										<td>${b.regDate}</td>
+										<fmt:parseDate value="${b.regDate}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="strRegDate"/>
+										<td><fmt:formatDate value="${strRegDate}" pattern="yy-MM-dd HH:mm"/></td>
 									</tr>
 								</c:forEach>
 							</c:when>
 						</c:choose>
-					
 					
 						<%-- <% List<Board> boardList = (List<Board>)request.getAttribute("resultList"); %>
 						<% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"); %>
@@ -101,7 +103,11 @@
 					<a href="/boardList?nowPage=<%= (paging.getPageBarEnd()+1) %>&board_title=<%= paging.getBoardTitle() == null ? "" : paging.getBoardTitle() %>">&raquo;</a>
 				<% } %> --%>
 				<c:if test="${paging.prev}">
-					<a href="/boardList?nowPage=${paging.pageBarStart-1}&board_title=${(paging.boardTitle eq null) ? '' : paging.boardTitle}">&laquo;</a>
+					<c:url var="testUrl" value="/boardList">
+						<c:param name="nowPage" value="${paging.pageBarStart-1}"/>
+						<c:param name="board_title" value="${paging.boardTitle}"/>
+					</c:url>
+					<a href="${testUrl}">&laquo;</a>
 				</c:if>
 				<c:forEach var="i" begin="${paging.pageBarStart}" end="${paging.pageBarEnd}" step="1" varStatus="vs">
 					<a href="/boardList?nowPage=${vs.index}&board_title=${(paging.boardTitle eq null) ? '' : paging.boardTitle}">${vs.index}</a>

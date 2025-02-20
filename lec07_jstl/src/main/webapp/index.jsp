@@ -1,7 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ page import="java.util.*" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,8 +168,35 @@
 			인덱스 : ${vs.index}<br>
 			카운트 : ${vs.count}<br>
 			첫번째인가요? ${vs.first}<br>
-			마지막인가요? ${vs.last}<br> 
+			마지막인가요? ${vs.last}<br>
 		</p>
 	</c:forEach>
+	<hr>
+	<h1>JSTL Formatting Library</h1>
+	<h2>1. formatNumber</h2>
+	<fmt:formatNumber value="1234.567" type="number"/><br>
+	<fmt:formatNumber value="1234.567" type="currency"/><br>
+	<fmt:setLocale value="en_us"/>
+	<fmt:formatNumber value="1234.567" type="currency"/><br>
+	<fmt:setLocale value="ko_kr"/>
+	<fmt:formatNumber value="1234.567" type="currency"/><br>
+	<fmt:formatNumber value="0.075" type="percent"/><br>
+	
+	<fmt:formatNumber value="1234.567" pattern="#,###.##"/><br>
+	<fmt:formatNumber value="1234.567" pattern="00000.00"/><br>
+	
+	<h2>2. formatDate</h2>
+	<c:set var="now" value="<%=new java.util.Date() %>"/>
+	<fmt:formatDate value="${now}" type="date"/><br>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss"/><br>
+	
+	<fmt:parseDate value="2025-02-20" pattern="yyyy-MM-dd" var="nowDate"/>
+	<fmt:formatDate value="${nowDate}" pattern="yyyy년 MM월 dd일"/>
+	
+	<h1>JSTL Function Library</h1>
+	<c:set var="data" value="How Are You? I am fine"/>
+	<p><c:out value="${fn:toUpperCase(data)}"/></p>
+	<p><c:out value="${fn:replace(data, 'fine', 'apple')}"/></p>
+	<p><c:out value="${fn:contains(data, 'You') ? 'O' : 'X'}"/></p>
 </body>
 </html>
