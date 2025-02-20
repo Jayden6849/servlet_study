@@ -10,6 +10,7 @@
 	<ol>
 		<li>
 			<a href="/boardList">목록 조회</a>
+			
 		</li>
 		<li>
 			<a href="#">상세 조회</a>
