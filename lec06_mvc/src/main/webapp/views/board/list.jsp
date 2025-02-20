@@ -1,8 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ page import="java.util.*" %>
 <%@ page import="java.time.format.*" %>
+
 <%@ page import="com.gn.board.vo.Board" %>
 
 <!DOCTYPE html>
@@ -46,9 +49,23 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% List<Board> boardList = (List<Board>)request.getAttribute("resultList"); %>
+						<c:choose>
+							<c:when test="${not empty resultList}">
+								<c:forEach var="b" items="${resultList}" varStatus="vs">
+									<tr data-board-no="${b.boardNo}">
+										<td>${(vs.index + 1) + ((paging.nowPage - 1) * paging.numPerPage)}</td>
+										<td>${b.boardTitle}</td>
+										<td>${b.memberName}</td>
+										<td>${b.regDate}</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+						</c:choose>
+					
+					
+						<%-- <% List<Board> boardList = (List<Board>)request.getAttribute("resultList"); %>
 						<% DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm"); %>
-						<%-- <% for(int i=0; i<boardList.size(); i++) { %>
+						<% for(int i=0; i<boardList.size(); i++) { %>
 							<tr data-board-no="<%= boardList.get(i).getBoardNo() %>">
 								<td><%= (i+1) + (paging.getNowPage() - 1) * paging.getNumPerPage() %></td>
 								<td><%= boardList.get(i).getBoardTitle() %></td>
@@ -57,14 +74,14 @@
 							</tr>
 						<% } %> --%>
 						
-						<c:forEach var="result" items="${resultList}" varStatus="status">
+						<%--<c:forEach var="result" items="${resultList}" varStatus="status">
 							<tr data-board-no="${result.boardNo}">
 								<td>${(status.index + 1) + ((paging.nowPage - 1) * paging.numPerPage)}</td>
 								<td>${result.boardTitle}</td>
 								<td>${result.memberName}</td>
 								<td>${result.regDate}</td>
 							</tr>
-						</c:forEach>
+						</c:forEach> --%>
 					</tbody>
 				</table>
 			</div>
@@ -96,6 +113,7 @@
 		</div>
 	</c:if>
 	<%-- <% } %> --%>
+	
 	<script>
 		$('.board_list tbody tr').on('click', function(){
 			const boardNo = $(this).data('board-no');
