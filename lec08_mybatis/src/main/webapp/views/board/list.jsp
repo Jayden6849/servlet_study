@@ -23,7 +23,7 @@
 		<tbody>
 			<c:choose>
 				<c:when test="${empty resultList}">
-					<p>게시글이 없습니다.</p>
+					<td colspan="3">게시글이 없습니다.</td>
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="b" items="${resultList}" varStatus="vs">
