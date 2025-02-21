@@ -15,4 +15,21 @@
 		SELECT *
 		FROM `board`
 	</select>
+	<select id="boardOne" parameterType="_int" resultMap="boardMap">
+		SELECT *
+		FROM `board`
+		WHERE board_no = #{boardNo}
+	</select>
+	<select id="boardTwo" parameterType="map" resultMap="boardMap">
+		SELECT *
+		FROM `board`
+		WHERE board_title = #{board_title}
+			AND board_content = #{board_content}
+	</select>
+	<select id="boardThree" parameterType="board" resultMap="boardMap">
+		SELECT *
+		FROM `board`
+		WHERE board_title = #{boardTitle}
+			AND board_content = #{boardContent}
+	</select>
 </mapper>

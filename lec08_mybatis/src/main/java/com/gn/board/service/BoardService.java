@@ -3,6 +3,7 @@ package com.gn.board.service;
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -17,5 +18,32 @@ public class BoardService {
 		session.close();
 		
 		return resultList; 
+	}
+	
+	public Board selectBoardOne(int boardNo) {
+		SqlSession session = getSqlSession();
+		
+		Board board = new BoardDao().selectBoardOne(session, boardNo);
+		session.close();
+		
+		return board;
+	}
+	
+	public Board selectBoardTwo(Map<String, String> paramMap) {
+		SqlSession session = getSqlSession();
+		
+		Board board = new BoardDao().selectBoardTwo(session, paramMap);
+		session.close();
+		
+		return board;
+	}
+	
+	public Board selectBoardThree(Board option) {
+		SqlSession session = getSqlSession();
+		
+		Board board = new BoardDao().selectBoardThree(session, option);
+		session.close();
+		
+		return board;
 	}
 }
