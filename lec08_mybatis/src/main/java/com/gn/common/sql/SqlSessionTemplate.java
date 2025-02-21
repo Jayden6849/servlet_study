@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlSessionTemplate {
-	public static SqlSession getSqlSession() {
+	public static SqlSession getSqlSession(boolean flag) {
 		SqlSession session = null;
 		
 		try {
@@ -25,7 +25,10 @@ public class SqlSessionTemplate {
 			
 			// 4. SqlSession 객체 생성
 			// openSession의 매개변수는 AutoCommit를 켜는지 끄는지 결정 -> true(default) || false
-			session = factory.openSession();
+			// 1. 매개변수를 안 쓴다 = false :: AutoCommit을 안 하겠다 = 트랜잭션을 쓰겠다.
+			// 2. 매개변수가 false :: 위와 같음
+			// 3. 매개변수를 true :: AutoCommit을 하겠다
+			session = factory.openSession(flag);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -32,4 +32,18 @@
 		WHERE board_title = #{boardTitle}
 			AND board_content = #{boardContent}
 	</select>
+	<insert id="boardUpdate" parameterType="board">
+		UPDATE `board`
+		SET board_title = #{boardTitle}
+		,board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</insert>
+	<delete id="boardDelete" parameterType="_int">
+		DELETE FROM `board`
+		WHERE board_no = #{boardNo}
+	</delete>
+	<insert id="boardInsert" parameterType="board">
+		INSERT `board` (board_title ,board_content ,board_writer)
+		VALUES (#{boardTitle} ,#{boardContent} ,#{boardWriter})
+	</insert>
 </mapper>

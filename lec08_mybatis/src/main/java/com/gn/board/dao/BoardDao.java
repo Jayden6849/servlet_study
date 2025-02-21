@@ -24,4 +24,16 @@ public class BoardDao {
 	public Board selectBoardThree(SqlSession session, Board option) {
 		return session.selectOne("boardMapper.boardThree", option);
 	}
+	
+	public int updateBoard(SqlSession session, Board board) {
+		return session.update("boardMapper.boardUpdate", board);
+	}
+	
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.boardDelete", boardNo);
+	}
+	
+	public int insertBoard(SqlSession session, Board board) {
+		return session.insert("boardMapper.boardInsert", board);
+	}
 }
