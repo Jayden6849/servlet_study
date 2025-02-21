@@ -44,5 +44,10 @@
 			<input type="submit" value="등록">
 		</fieldset>
 	</form>
+	<ol>
+		<li>
+			<a href="<c:url value='/boardManyInsert'/>">여러개 한 번에 인서트하기</a>
+		</li>
+	</ol>
 </body>
 </html>

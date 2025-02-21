@@ -1,6 +1,8 @@
 package com.gn.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,30 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 import com.gn.board.service.BoardService;
 import com.gn.board.vo.Board;
 
-@WebServlet("/boardCreate")
-public class BoardCreateServlet extends HttpServlet {
+@WebServlet("/boardManyInsert")
+public class BoardManyInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BoardCreateServlet() {
+    public BoardManyInsertServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String boardTitle = request.getParameter("board_title");
-		String boardContent = request.getParameter("board_content");
-		int boardWriter = Integer.parseInt(request.getParameter("board_writer"));
+		List<Board> list = new ArrayList<>();
+		list.add(Board.builder().boardTitle("a").boardContent("b").boardWriter(4).build());
+		list.add(Board.builder().boardTitle("가").boardContent("나").boardWriter(4).build());
+		list.add(Board.builder().boardTitle("1").boardContent("2").boardWriter(32).build());
 		
-		Board board = new Board();
-		board.setBoardTitle(boardTitle);
-		board.setBoardContent(boardContent);
-		board.setBoardWriter(boardWriter);
-		
-		int result = new BoardService().createBoard(board);
-		System.out.println("BoardCreateServlet : "+result);
+		int result = new BoardService().insertMany(list);
+		System.out.println(result);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		doGet(request, response);
 	}
 }

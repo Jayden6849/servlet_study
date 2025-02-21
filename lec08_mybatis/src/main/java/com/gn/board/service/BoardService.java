@@ -11,10 +11,10 @@ import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Board;
 
 public class BoardService {
-	public List<Board> selectBoardList() {
+	public List<Board> selectBoardList(Board option) {
 		SqlSession session = getSqlSession(true);
 		
-		List<Board> resultList = new BoardDao().selectBoardList(session);
+		List<Board> resultList = new BoardDao().selectBoardList(session, option);
 		session.close();
 		/* 
 		 * 만약 getSqlSession(false) 로 트랜잭션을 사용할 경우에는 조건을 걸어서 커밋을 하거나 롤백을 하면 된다.
@@ -70,10 +70,19 @@ public class BoardService {
 		return result;
 	}
 	
-	public int insertBoard(Board board) {
+	public int createBoard(Board board) {
 		SqlSession session = getSqlSession(true);
 		
-		int result = new BoardDao().insertBoard(session, board);
+		int result = new BoardDao().createBoard(session, board);
+		session.close();
+		
+		return result;
+	}
+	
+	public int insertMany(List<Board> list) {
+		SqlSession session = getSqlSession(true);
+		
+		int result = new BoardDao().insertMany(session, list);
 		session.close();
 		
 		return result;
